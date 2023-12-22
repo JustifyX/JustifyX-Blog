@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Logout - JustifyX Blog{% endblock %}
+
+{% block page_title %}Logout{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Logout</h2>
+    <p>Are you sure you want to log out?</p>
+    <form method="post" action="{{ url_for('logout') }}">
+        <button type="submit" class="btn btn-primary">Logout</button>
+    </form>
+</div>
+{% endblock %}

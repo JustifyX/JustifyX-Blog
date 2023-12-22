@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}JustifyX Blog - AI Blog{% endblock %}
+{% block page_title %}JustifyX Blog{% endblock %}
+{% block page_description %}Feel free to state your opinion on my Blogs{% endblock %}
+{% include "navbar.html" %}
+{% block content %}
+<section class="container">
+     <section class="container">
+         <div class="row">
+             <div class="col-md-8 offset-md-2">
+                    <h2 class="text-center font-weight-bold blog_title">Why A.I. won't be replacing you in the near future</h2>
+             </div>
+         </div>
+     </section>
+
+    <p class="blog_content">As the technology advances, the world advances too. From stone tools all the way back from 3 million B.C. to our modern technology, the world hasn't stopped advancing to better, Which means that our lifestyle has changed a lot, But people fear of losing their jobs and getting replaced by A.I. . For example lets take robots that make food or make coffee, tea, they even make cocktails a good ones at that and this kind of technology already exists,  But people don't realize that new lifestyle comes with new opportunities, such as new jobs or new hobbies. It's fair to say that we are not going to be replaced by A.I yet. As the studies show, the memory capacity of a human brain was testified to have equal to 2.5 petabytes of memory capacity. A “petabyte” means 1024 terabytes or a million gigabytes so that the average adult human brain can accumulate the equivalent of 2.5 million gigabytes of memory. No matter how hard you try to make something that is as capable as a human brain in our current world, you won't be able to succeed, Simply, because our current technology isn't that advanced. It would take hundreds and hundreds of years to make something that replicates the capabilities of a human brain. What I'm trying to say by this is that, there is no need to fear the current A.I. . Publicity also fears of "Evil" technology and how they might take over our world, But we have not yet reached a stage where robots can think and feel like humans, though, we are getting there, and hence, this underscores the importance of skills such as Decision-Making, Problem Solving, Emotional Intelligence, Critical Thinking, and cultural and behavioral sensitivity, which encloses the fact that we have a long way to be at the level, where it's possible for artificial intelligence to take over.
+    <p>February 19th 2023 - JustifyX</p>
+     <div id="comments-section">
+        <h3 class="font-weight-bold">Comments</h3>
+        <div id="comments"></div>
+
+        <h4>Add a Comment</h4>
+        <form id="comment-form">
+            <div class="form-group">
+                <label for="comment-author">Name:</label>
+                <input type="text" class="form-control" id="comment-author" required>
+            </div>
+            <div class="form-group">
+                <label for="comment-text">Comment:</label>
+                <textarea class="form-control" id="comment-text" rows="3" required></textarea>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="addComment()">Add Comment</button>
+        </form>
+    </div>
+</section>
+<script>
+    function addComment() {
+        var author = document.getElementById("comment-author").value;
+        var text = document.getElementById("comment-text").value;
+
+        var commentContainer = document.getElementById("comments");
+        var newComment = document.createElement("div");
+        newComment.innerHTML = "<p><strong>" + author + ":</strong> " + text + "</p>";
+        commentContainer.appendChild(newComment);
+
+        // Clear the form fields
+        document.getElementById("comment-author").value = "";
+        document.getElementById("comment-text").value = "";
+    }
+</script>
+{% endblock %}

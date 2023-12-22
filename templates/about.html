@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JustifyX Blog - About</title>
+    <style>
+        video::-webkit-media-controls {
+            display:none !important;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #myVideo {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+        }
+
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        #loader img {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="loader">
+    <img src="/static/Winter.gif" alt="Loading...">
+</div>
+
+<video id="myVideo" src="/static/NeverGonna.mp4" autoplay loop muted controls="false" oncontextmenu="return false;" onkeydown="return false">
+    Your browser does not support the video tag.
+</video>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var video = document.getElementById('myVideo');
+        var loader = document.getElementById('loader');
+
+        video.addEventListener('canplay', function () {
+            loader.style.display = 'none';
+            video.style.display = 'block';
+        });
+
+        video.addEventListener('pause', function (e) {
+            e.preventDefault();
+            video.play();
+        });
+
+        video.volume = 1;
+        video.muted = false;
+
+        video.addEventListener('volumechange', function (e) {
+            e.preventDefault();
+            video.muted = false;
+        });
+
+
+        function adjustVideoSize() {
+            video.style.width = window.innerWidth + 'px';
+            video.style.height = window.innerHeight + 'px';
+        }
+
+
+        adjustVideoSize();
+        window.addEventListener('resize', adjustVideoSize);
+    });
+</script>
+
+</body>
+</html>

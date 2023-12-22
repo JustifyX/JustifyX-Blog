@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}JustifyX Blog - Home{% endblock %}
+{% block page_title %}JustifyX Blog{% endblock %}
+{% block page_description %}Feel free to state your opinion on my Blogs{% endblock %}
+{% include "navbar.html" %}
+{% block content %}
+<section class="container" >
+    <section class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card profile-card">
+                    <img src="/static/Me.jpg" class="card-img-top" alt="Your Picture">
+                    <div class="card-body">
+                        <h5 class="card-title">JustifyX</h5>
+                        <p style="margin-top: 2px;" class="card-text"><a>I'm JustifyX or formally called Luka
+                            Matiashvili. You can call me whichever you'd like. I'm intelligent and have a lot of
+                            passions. so much so that I'm not able to list all of them here. Here are some that I'm able
+                            to list: </a><a class="bold"
+                                            href="https://open.spotify.com/track/1To5mLKK7BclXkS9v7Piog?si=01da39269fd24395">Music,</a>
+                            <a href="https://www.youtube.com/c/JustifyX">YouTube</a><a> and</a> <a class="bold">Programming.</a>
+                            I created this blog to connect with people on certain topics.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+          {% for blog in blogs %}
+            <div class="card blog-card" style="margin-top: 20px; height: 500px;">
+              <a href="{{ url_for('blog_detail', blog_id=blog.id) }}">
+                <img src="{{ url_for('static', filename=blog.img) }}" class="card-img-top" alt="{{ blog.name }} Image">
+              </a>
+              <div class="card-body">
+                <h5 class="card-title">{{ blog.name }}</h5>
+                <p class="card-text">{{ blog.post_date.strftime('%B %d, %Y') }}</p>
+                <p class="card-text">{{ blog.description }}</p>
+                <a href="{{ url_for('blog_detail', blog_id=blog.id) }}" class="btn btn-success">Read</a>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  </section>
+{% endblock %}

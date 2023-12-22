@@ -1,0 +1,85 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+    <div class="container text-center">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <img src="/static/burgir_menu.png" alt="Burger Menu" style="width: 30px; height: auto;">
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blogs">Blogs</a>
+                </li>
+                {% if current_user.is_authenticated and current_user.username == 'JustifyX' %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/add_blog">Add Blog</a>
+                </li>
+                {% endif %}
+            </ul>
+            <div class="row align-items-center">
+                <div class="col">
+                    <a href="https://twitter.com/JustifyX2" target="_blank" rel="nofollow noopener" aria-label="Twitter"
+                       title="Twitter">
+                        <i class="pipdigicons pipdigicons_fab pipdigicons-twitter"></i>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="https://www.tiktok.com/@_justifyx" target="_blank" rel="nofollow noopener"
+                       aria-label="TikTok" title="TikTok">
+                        <i class="pipdigicons pipdigicons_fab pipdigicons-tiktok"></i>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="https://www.youtube.com/c/JustifyX" target="_blank" rel="nofollow noopener"
+                       aria-label="YouTube" title="YouTube">
+                        <i class="pipdigicons pipdigicons_fab pipdigicons-youtube"></i>
+                    </a>
+                </div>
+                <div class="col" style="margin-bottom: 10px;">
+                    <div class="dropdown" id="searchDropdown">
+                        <a href="#" class="btn btn-secondary hover dropdown-toggle" id="searchDropdownButton"
+                           role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="pipdigicons pipdigicons-fab pipdigicons-search"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="searchDropdownButton">
+                            <form class="form-inline my-2 my-lg-0" action="{{ url_for('search_results') }}"
+                                  method="GET">
+                                {{ search_form.hidden_tag() }}
+                                <input class="form-control mr-sm-2" type="text" placeholder="Search..."
+                                       aria-label="Search"
+                                       name="query">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="login-section mb-3 d-flex align-items-center" style="margin-top: 8px;">
+                        {% if current_user.is_authenticated %}
+                        <div class="dropdown">
+                            <a href="#" class="btn btn-secondary hover dropdown-toggle" id="profileDropdown"
+                               role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="pipdigicons pipdigicons-fab pipdigicons-user-circle"></i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="profileDropdown">
+                                <p class="dropdown-item">{{ current_user.email }}</p>
+                                <a class="dropdown-item" href="/logout">Logout</a>
+                            </div>
+                        </div>
+                        {% else %}
+                        <a href="/login" class="btn btn-secondary hover">Login</a>
+                        <a href="/register" class="btn btn-secondary hover ml-2">Register</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

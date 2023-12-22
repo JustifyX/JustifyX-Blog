@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}JustifyX Blog - {{ blog.name }}{% endblock %}
+{% block page_title %}JustifyX Blog{% endblock %}
+{% block page_description %}Feel free to state your opinion on my Blogs{% endblock %}
+{% include "navbar.html" %}
+
+{% block content %}
+<section class="container">
+    <section class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h2 class="text-center font-weight-bold blog_title">{{ blog.name }}</h2>
+            </div>
+        </div>
+    </section>
+    <p class="blog_content">{{ blog.content | safe }}</p>
+    <p>{{ blog.post_date.strftime('%B %d, %Y') }}</p>
+
+    <div id="comments-section">
+        <h3 class="font-weight-bold">Comments</h3>
+        <div id="comments">
+            {% for comment in blog.comments %}
+                <p><strong>{{ comment.user.username }}:</strong> {{ comment.content }}</p>
+            {% endfor %}
+        </div>
+
+        <h4>Add a Comment</h4>
+        <form id="comment-form" method="post" action="{{ url_for('add_comment', blog_id=blog.id) }}">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                <label for="comment-text">Comment:</label>
+                <textarea name="comment" class="form-control" id="comment-text" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Comment</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

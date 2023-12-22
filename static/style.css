@@ -1,0 +1,263 @@
+body {
+    font-family: Montserrat, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+    color: #333;
+}
+
+.blog_title {
+    font-size: 50px;
+    margin-top: 50px;
+}
+
+.blog_content {
+    font-size: 30px;
+    margin-top: 50px;
+    font-family: Merriweather;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+nav.navbar {
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+nav.navbar.navbar-scrolled {
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+header {
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    padding: 20px 0;
+    padding-top: 70px;
+    text-align: center;
+    transition: padding 0.3s;
+}
+
+header.header-scrolled {
+    padding: 20px 0;
+}
+
+header h1 {
+    font-size: 100px;
+    font-weight: 900;
+    margin-bottom: 10px;
+    font-family: "Generis Slab W01 Light";
+}
+
+header p {
+    font-family: Raleway;
+    font-size: 20px;
+    color: #555;
+}
+
+section {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+.blog-card {
+            flex-basis: 20%;
+            height: 48%;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+.card img {
+            max-width: 100%;
+            height: auto;
+        }
+
+    .profile-card {
+            flex-basis: 30%;
+            margin-bottom: 20px;
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            border-radius: 10px;
+        }
+
+.profile-card img {
+            width: 100%;
+            border-radius: 10px 10px 0 0;
+        }
+
+.profile-card .card-body {
+            padding: 20px;
+        }
+
+.profile-card h5 {
+            margin-bottom: 0;
+        }
+
+.blog-card {
+            flex-basis: 65%;
+            margin-bottom: 20px;
+        }
+
+.blog-card img {
+            width: 100%;
+            border-radius: 10px 10px 0 0;
+        }
+
+.blog-card .card-body {
+            padding: 20px;
+        }
+
+.card-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    color: #555;
+    font-size: 16px;
+}
+
+.btn-primary {
+    background-color: #ff5722;
+    border: none;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #e64a19;
+}
+
+.btn {
+    margin-top: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px 0;
+}
+
+@media (max-width: 767px) {
+    header h1 {
+        font-size: 22px;
+    }
+
+    header p {
+        font-size: 14px;
+    }
+
+    .card-title {
+        font-size: 20px;
+    }
+
+    .card-text {
+        font-size: 14px;
+    }
+    img {
+        width: 20px;
+    }
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: Raleway;
+    font-weight: 400 !important;
+    letter-spacing: 0;
+    color: black;
+}
+
+h1 {font-size: 25px}
+h2 {font-size: 20px}
+h3 {font-size: 19px}
+h4 {font-size: 17px}
+h5 {font-size: 16px}
+h6 {font-size: 16px}
+
+.entry-content h2,.entry-content h3,.entry-content h4,.entry-content h5,.entry-content h6{text-align:left;}
+
+.entry-content h2 {
+    font-size:21px;
+}
+
+a {
+    text-decoration: none;
+    color: #999;
+    -webkit-transition: color .2s linear;
+    -moz-transition: color .2s linear;
+    -ms-transition: color .2s linear;
+    -o-transition: color .2s linear;
+    transition: color .2s linear;
+}
+
+a:hover,
+a:focus {
+    color: #000;
+    outline: none;
+    text-decoration: none;
+}
+
+.nav-item {
+    margin-right: 50px;
+    font-family: lato;
+    font-color: black;
+    font-weight: 200;
+}
+
+body.header-scrolled-body {
+    background-color: #fff !important;
+}
+.background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background-color: #fff;
+    opacity: 0;
+    transition: height 0.3s, opacity 0.3s;
+}
+
+.background-overlay-visible {
+    height: 100%;
+    opacity: 1;
+}
+.socialz.top-socialz a {
+    margin-right: 15px;
+}
+
+
+@keyframes glow {
+    0% {
+        opacity: 0;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0), 0 0 20px rgba(255, 255, 255, 0), 0 0 30px rgba(230, 0, 0, 0), 0 0 40px rgba(230, 0, 0, 0), 0 0 50px rgba(230, 0, 0, 0), 0 0 60px rgba(230, 0, 0, 0), 0 0 70px rgba(230, 0, 0, 0);
+    }
+
+    50% {
+        opacity: 1;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0), 0 0 30px rgba(255, 255, 255, 0), 0 0 40px rgba(255, 0, 0, 1), 0 0 50px rgba(255, 0, 0, 1), 0 0 60px rgba(255, 0, 0, 1), 0 0 70px rgba(255, 0, 0, 1), 0 0 80px rgba(255, 0, 0, 1);
+    }
+
+    100% {
+        opacity: 0;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0), 0 0 20px rgba(255, 255, 255, 0), 0 0 30px rgba(230, 0, 0, 0), 0 0 40px rgba(230, 0, 0, 0), 0 0 50px rgba(230, 0, 0, 0), 0 0 60px rgba(230, 0, 0, 0), 0 0 70px rgba(230, 0, 0, 0);
+    }
+}
+
+.glow-animation {
+    -webkit-animation: glowAnimation 1s ease-in-out infinite alternate;
+    -moz-animation: glowAnimation 1s ease-in-out infinite alternate;
+    animation: glowAnimation 1s ease-in-out infinite alternate;
+}
+
+.glowing-text {
+    margin-right: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(8%, -70%);
+    color: white;
+    font-size: 349%;
+    font-family: Merriweather;
+    animation: glow 2s infinite;
+}

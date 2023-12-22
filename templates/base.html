@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}JustifyX Blog{% endblock %}</title>
+    <meta name="description" content="You can meet JustifyX's Blogs & state your own Opinion">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link href="https://db.onlinewebfonts.com/c/0c3e65bc57a1c4598e994814590daf19?family=Generis+Slab+W01+Light"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://pipdigz.co.uk/fonts/pipdigicons_2.css" media="none"
+          onload="if(media!='all')media='all'">
+</head>
+<body>
+{% include "navbar.html" %}
+<header>
+    <div class="container" style="margin-top: 20px;">
+        <h1>{% block page_title %}JustifyX Blog{% endblock %}</h1>
+        <p>{% block page_description %}Feel free to state your opinion on my Blogs{% endblock %}</p>
+    </div>
+</header>
+
+
+<section class="container">
+    {% block content %}
+    {% endblock %}
+</section>
+
+<footer style="margin-top: 100px;">
+    <p>&copy; 2023 <a class="white-text" href="/">JustifyX Blog</a>. All rights reserved.</p>
+    <a href="https://tbceducation.ge" target="_blank" rel="noopener noreferrer">
+        <img src="/static/tbc.png" alt="TBC Education" style="width: 50px; height: auto;">
+    </a>
+</footer>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var navbar = $(".navbar");
+
+        $(window).scroll(function () {
+            var scroll = $(window).scrollTop();
+
+            if (scroll > 0) {
+                navbar.addClass("navbar-scrolled");
+            } else {
+                navbar.removeClass("navbar-scrolled");
+            }
+
+            navbar.css({
+                opacity: scroll > 0 ? 0.8 : 1,
+                'box-shadow': scroll > 0 ? '0 0 10px rgba(0, 0, 0, 0.3)' : 'none'
+            });
+        });
+    });
+</script>
+</body>
+</html>
