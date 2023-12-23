@@ -1,136 +1,65 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
-*{
-    margin: 0;
-    padding: 0;
-    font-family: 'poppins',sans-serif;
-}
-section{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    width: 100%;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}JustifyX Blog{% endblock %}</title>
+    <meta name="description" content="You can meet JustifyX's Blogs & state your own Opinion">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link href="https://db.onlinewebfonts.com/c/0c3e65bc57a1c4598e994814590daf19?family=Generis+Slab+W01+Light"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://pipdigz.co.uk/fonts/pipdigicons_2.css" media="none"
+          onload="if(media!='all')media='all'">
+</head>
+<body>
+{% include "navbar.html" %}
+<header>
+    <div class="container" style="margin-top: 20px;">
+        <h1>{% block page_title %}JustifyX Blog{% endblock %}</h1>
+        <p>{% block page_description %}Feel free to state your opinion on my Blogs{% endblock %}</p>
+    </div>
+</header>
 
-    background: url('/static/180sx.png')no-repeat;
-    background-position: center;
-    background-size: cover;
 
-    animation: AnimateBG 20s linear;
-}
-.form-box{
-    position: relative;
-    width: 400px;
-    height: 450px;
-    background: transparent;
-    border: 2px solid rgba(255,255,255,0.5);
-    border-radius: 20px;
-    backdrop-filter: blur(15px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+<section class="container">
+    {% block content %}
+    {% endblock %}
+</section>
 
-}
-h2{
-    font-size: 2em;
-    color: #fff;
-    text-align: center;
-}
-.inputbox{
-    position: relative;
-    margin: 30px 0;
-    width: 310px;
-    border-bottom: 2px solid #fff;
-}
-.inputbox label{
-    position: absolute;
-    top: 50%;
-    left: 5px;
-    transform: translateY(-50%);
-    color: #fff;
-    font-size: 1em;
-    pointer-events: none;
-    transition: .1s ease-out;
-}
-input:focus ~ label,
-input:valid ~ label{
-top: -5px;
-}
-.inputbox input {
-    width: 100%;
-    height: 50px;
-    background: transparent;
-    border: none;
-    outline: none;
-    font-size: 1em;
-    padding:0 35px 0 5px;
-    color: #fff;
-}
-.inputbox ion-icon{
-    position: absolute;
-    right: 8px;
-    color: #fff;
-    font-size: 1.2em;
-    top: 20px;
-}
+<footer style="margin-top: 100px;">
+    <p>&copy; 2023 <a class="white-text" href="/">JustifyX Blog</a>. All rights reserved.</p>
+    <a href="https://tbceducation.ge" target="_blank" rel="noopener noreferrer">
+        <img src="/static/tbc.png" alt="TBC Education" style="width: 50px; height: auto;">
+    </a>
+</footer>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var navbar = $(".navbar");
 
-.input-box img{
-    cursor: pointer;
-}
-.forget{
-    margin: -15px 0 15px ;
-    font-size: .9em;
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-}
+        $(window).scroll(function () {
+            var scroll = $(window).scrollTop();
 
-.forget label input{
-    margin-right: 3px;
+            if (scroll > 0) {
+                navbar.addClass("navbar-scrolled");
+            } else {
+                navbar.removeClass("navbar-scrolled");
+            }
 
-}
-.hover{
-    cursor: pointer;
-}
-.forget label a{
-    color: #fff;
-    text-decoration: none;
-}
-.forget label a:hover{
-    text-decoration: underline;
-}
-button{
-    width: 100%;
-    height: 40px;
-    border-radius: 40px;
-    background: #fff;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: 600;
-}
-.register{
-    font-size: .9em;
-    color: #fff;
-    text-align: center;
-    margin-top: 20px;
-}
-.register p a{
-    text-decoration: none;
-    color: #fff;
-    font-weight: 600;
-}
-.register p a:hover{
-    text-decoration: underline;
-}
-.text-gradient {
-    background: linear-gradient(90.72deg, #cbfdb1 3.49%, #acbff1 50.67%, #efa7ec 100.79%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: rgba(0,0,0,0)
-}
-@keyframes AnimateBG {
-        100% {
-                filter: hue-rotate(360deg);
-
-        }
-}
+            navbar.css({
+                opacity: scroll > 0 ? 0.8 : 1,
+                'box-shadow': scroll > 0 ? '0 0 10px rgba(0, 0, 0, 0.3)' : 'none'
+            });
+        });
+    });
+</script>
+</body>
+</html>
