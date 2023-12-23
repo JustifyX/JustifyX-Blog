@@ -3,6 +3,8 @@ from models import User, Comment, Blog
 from forms import AddBlogForm, RegisterForm, LoginForm, CommentForm, SearchForm
 from ext import app, db
 from flask_login import current_user, login_required, LoginManager, logout_user, login_user
+from wtforms.validators import ValidationError
+from forms import UniqueEmail, UniqueUsername
 from os import path
 
 
@@ -75,21 +77,30 @@ def login():
     return render_template("loginpage.html", form=form)
 
 
-@app.route("/register", methods=['GET', 'POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
 
     if form.validate_on_submit():
-        print(form.username.data)
-        print(form.email.data)
-        print(form.password.data)
-        user = User(email=form.email.data, username=form.username.data, password=form.password.data)
+        email = form.email.data
+        username = form.username.data
+        password = form.password.data
+
+        try:
+            UniqueEmail()(form, form.email)
+            UniqueUsername()(form, form.username)
+        except ValidationError as e:
+            flash(str(e), 'danger')
+            return render_template('register.html', form=form)
+
+        user = User(email=email, username=username, password=password)
         db.session.add(user)
         db.session.commit()
-        return redirect("/login")
 
-    return render_template("register.html", form=form)
+        flash('Registration successful. You can now log in.', 'success')
+        return redirect(url_for('login'))
 
+    return render_template('register.html', form=form)
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
