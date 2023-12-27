@@ -1,8 +1,9 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms.fields import StringField, SubmitField, PasswordField, TextAreaField, DateField
-from wtforms.validators import DataRequired, Length, ValidationError
+from wtforms.validators import DataRequired, Length, ValidationError, Email
 from werkzeug.utils import secure_filename
+from models import User
 from PIL import Image
 
 
@@ -27,13 +28,32 @@ class AddBlogForm(FlaskForm):
                     raise ValidationError('Image must have dimensions of 1270x400 pixels.')
             else:
                 raise ValidationError('Invalid file format. Allowed formats: jpg, jpeg, png, gif.')
+
+class UniqueEmail:
+    def __init__(self, message=None):
+        if not message:
+            message = 'Email is already taken.'
+        self.message = message
+
+    def __call__(self, form, field):
+        if User.query.filter_by(email=field.data).first():
+            raise ValidationError(self.message)
+
+class UniqueUsername:
+    def __init__(self, message=None):
+        if not message:
+            message = 'Username is already taken.'
+        self.message = message
+
+    def __call__(self, form, field):
+        if User.query.filter_by(username=field.data).first():
+            raise ValidationError(self.message)
+
 class RegisterForm(FlaskForm):
-    email = StringField(
-                        validators=[DataRequired(message="Email field is mandatory")])
-    username = StringField(
-                           validators=[DataRequired(message="Username field is mandatory")])
-    password = PasswordField(validators=[DataRequired(message="Password field is mandatory")])
-    submit = SubmitField("Register")
+    email = StringField('Email', validators=[DataRequired(), Email(), UniqueEmail()])
+    username = StringField('Username', validators=[DataRequired(), UniqueUsername()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField('Register')
 
 
 class LoginForm(FlaskForm):

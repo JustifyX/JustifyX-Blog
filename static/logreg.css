@@ -15,7 +15,7 @@ section{
     background-position: center;
     background-size: cover;
 
-    animation: AnimateBG 20s linear;
+    animation: AnimateBG 20s linear infinite;
 }
 .form-box{
     position: relative;
