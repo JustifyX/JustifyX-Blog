@@ -1,4 +1,4 @@
-from flask import render_template, redirect, flash, url_for, request, send_from_directory
+from flask import render_template, redirect, flash, url_for, request, send_from_directory, jsonify
 from models import User, Comment, Blog
 from forms import AddBlogForm, RegisterForm, LoginForm, CommentForm, SearchForm
 from ext import app, db
@@ -39,6 +39,23 @@ def search_results():
 def inject_search_form():
     search_form = SearchForm()
     return dict(search_form=search_form)
+
+@app.route('/validate_registration', methods=['POST'])
+def validate_registration():
+    csrf_token = request.form.get('csrf_token')
+    email = request.form.get('email')
+    username = request.form.get('username')
+
+    if email_already_exists(email) or username_already_exists(username):
+        return jsonify({"success": False, "message": "Email or username already taken."})
+    else:
+        return jsonify({"success": True, "message": "Validation successful."})
+
+def email_already_exists(email):
+    return User.query.filter_by(email=email).first() is not None
+
+def username_already_exists(username):
+    return User.query.filter_by(username=username).first() is not None
 
 
 @app.route("/AI_Blog", methods=['GET', 'POST'])
