@@ -152,3 +152,16 @@ button{
 
         }
 }
+
+@media (max-width: 360px) {
+    .form-box {
+        width: 100%;
+        height: 100vh;
+        border: none;
+
+    }
+
+    inputbox {
+        width: 290px;
+    }
+}
