@@ -68,3 +68,10 @@ class CommentForm(FlaskForm):
 class SearchForm(FlaskForm):
     search = StringField("Search", render_kw={"placeholder": "Search..."}, id="search-input")
     submit = SubmitField("Go")
+
+class EditBlogForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    description = StringField('Description', validators=[DataRequired()])
+    content = TextAreaField('Content', validators=[DataRequired()])
+    image = FileField('Image', validators=[FileAllowed(['jpg', 'png'])])
+    submit = SubmitField('Save Changes')

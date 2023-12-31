@@ -1,12 +1,14 @@
 from flask import render_template, redirect, flash, url_for, request, send_from_directory, jsonify
 from models import User, Comment, Blog
-from forms import AddBlogForm, RegisterForm, LoginForm, CommentForm, SearchForm
+from forms import AddBlogForm, RegisterForm, LoginForm, CommentForm, SearchForm, EditBlogForm
 from ext import app, db
 from flask_login import current_user, login_required, LoginManager, logout_user, login_user
 from wtforms.validators import ValidationError
+from werkzeug.utils import secure_filename
 from forms import UniqueEmail, UniqueUsername
-from os import path
-
+from PIL import Image
+from os import path, makedirs
+from os.path import join, exists
 
 @app.route("/")
 def home():
@@ -56,22 +58,6 @@ def email_already_exists(email):
 
 def username_already_exists(username):
     return User.query.filter_by(username=username).first() is not None
-
-
-@app.route("/AI_Blog", methods=['GET', 'POST'])
-def ai_blog():
-    form = CommentForm()
-
-    if request.method == 'POST' and form.validate_on_submit():
-        comment = Comment(content=form.comment.data, author=current_user)
-
-        db.session.add(comment)
-        db.session.commit()
-
-        flash('Comment posted successfully!', 'success')
-
-    return render_template("AI_Blog.html", form=form)
-
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -91,6 +77,20 @@ def login():
         flash('Login unsuccessful. Check your email and password.', 'danger')
 
     return render_template("loginpage.html", form=form)
+
+@app.route('/delete_blog/<int:blog_id>', methods=['POST'])
+@login_required
+def delete_blog(blog_id):
+    blog = Blog.query.get_or_404(blog_id)
+
+    if current_user.is_authenticated and current_user.username == 'JustifyX':
+        db.session.delete(blog)
+        db.session.commit()
+        flash('Blog deleted successfully.', 'success')
+    else:
+        flash('You do not have permission to delete this blog.', 'danger')
+
+    return redirect(url_for('blog_list'))
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -119,7 +119,6 @@ def register():
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
-
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -154,6 +153,42 @@ def add_blog():
 
     return render_template("add_blog.html", form=form)
 
+@app.route('/edit_blog/<int:blog_id>', methods=['GET', 'POST'])
+@login_required
+def edit_blog(blog_id):
+    blog = Blog.query.get_or_404(blog_id)
+
+    if current_user.username != 'JustifyX':
+        flash('You are not authorized to edit this blog.', 'danger')
+        return redirect(url_for('blog_list'))
+
+    form = EditBlogForm(obj=blog)
+
+    if form.validate_on_submit():
+        form.populate_obj(blog)
+
+        if form.image.data:
+            image = form.image.data
+            filename = secure_filename(image.filename)
+
+            if not is_valid_resolution(image):
+                flash('Image resolution must be 1270x400.', 'danger')
+                return redirect(url_for('edit_blog', blog_id=blog_id))
+
+            image_path = join(app.config['UPLOAD_FOLDER'], filename)
+            image.save(image_path)
+
+            blog.img = f'static/{filename}'
+
+        db.session.commit()
+        flash('Blog updated successfully.', 'success')
+        return redirect(url_for('blog_list'))
+
+    return render_template('edit_blog.html', form=form)
+
+def is_valid_resolution(image):
+    img = Image.open(image)
+    return img.width == 1270 and img.height == 400
 
 @app.route('/logout', methods=['GET', 'POST'])
 @login_required

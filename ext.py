@@ -6,6 +6,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'vanilla_ice_ice_baby'
+app.config['UPLOAD_FOLDER'] = '/static'
 
 
 db = SQLAlchemy(app)

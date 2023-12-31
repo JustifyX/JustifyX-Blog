@@ -60,11 +60,4 @@ def load_user(user_id):
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-
-        new_user = User(email="admin@example.com", username="admin", password="password")
-        db.session.add(new_user)
-
-        new_blog = Blog(name="AI Blog", post_date=datetime(2023, 2, 19), img="/static/AI.PNG")
-        db.session.add(new_blog)
-
         db.session.commit()
